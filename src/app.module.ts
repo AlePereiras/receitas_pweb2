@@ -21,8 +21,8 @@ import { DataSource } from 'typeorm';
       ssl: true
     }),
   ],
-  controllers: [AppController, ReceitasController],
-  providers: [AppService, ReceitasService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {
   constructor(private dataSource: DataSource){}
