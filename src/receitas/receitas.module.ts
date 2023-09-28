@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common';
+import { ReceitasController } from './receitas.controller';
 import { ReceitasService } from './receitas.service';
 
 @Module({
-  providers: [ReceitasService]
+    controllers: [ReceitasController],
+    providers: [ReceitasService]
 })
 export class ReceitasModule {}
