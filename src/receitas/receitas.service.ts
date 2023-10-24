@@ -1,32 +1,40 @@
 import { Injectable } from '@nestjs/common';
-import { Receita } from './interfaces/receita.interface';
+//import { Receita } from './interfaces/receita.interface';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Receita } from './receita.entity';
+import { Repository } from 'typeorm';
+import { CreateOrUpdateReceitasDto } from './dto/create.receitas.dto';
 
 @Injectable()
 export class ReceitasService {
 
-    private readonly receitas:  Receita[] = [];
+    constructor(
+        @InjectRepository(Receita)
+        private receitasRepository: Repository<Receita>
+    ) { }
 
-    findAll(): Receita[] {
-        return this.receitas;
+    // Retorna todas as receitas do usuário
+    findAll(): Promise<Receita[]> {
+        return this.receitasRepository.find();
     }
 
-    create(receita: Receita): void{
-        this.receitas.push(receita);
+    // Criando uma receita 
+    save(receita: CreateOrUpdateReceitasDto): Promise<Receita> {
+        return this.receitasRepository.save(receita);
     }
 
-    findById(id: number): Receita {
-        return this.receitas.find(receita => receita.id === id);
+    async update(id: number, receita: CreateOrUpdateReceitasDto): Promise<void> {
+        await this.receitasRepository.update(id, receita);
     }
 
-    findIndexById(id: number): number { 
-        return this.receitas.findIndex(receita => receita.id === id);
+    // Retorna várias receitas a partir do ingrediente
+    findById(id: number): Promise<Receita | null> {
+        return this.receitasRepository.findOneBy({ id });
     }
 
-    deleteByIndex(index: number): void {
-        this.receitas.splice(index, 1);
+    // Removendo uma receita
+    async remove(id: number): Promise<void> {
+        await this.receitasRepository.delete(id);
     }
 
-    update(index:number, receita: Receita): void{
-        this.receitas.splice(index, 1, receita);
-    }
 }

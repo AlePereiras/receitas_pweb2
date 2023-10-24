@@ -1,51 +1,54 @@
 import { Controller, Get, Delete, Post, Put, Body, HttpStatus, Param, ParseIntPipe, Res, } from '@nestjs/common';
 import { ReceitasService } from './receitas.service';
-import { Receita } from './interfaces/receita.interface';
+//import { Receita } from './interfaces/receita.interface';
 import { Response } from 'express';
+import { Receita } from './receita.entity';
+import { CreateOrUpdateReceitasDto } from './dto/create.receitas.dto';
 
 @Controller('receitas')
 export class ReceitasController {
-    constructor(private receitasService: ReceitasService) {}
+
+    constructor(private receitasService: ReceitasService) { }
 
     @Get()
-    findAll(): Receita[] {
+    findAll(): Promise<Receita[]> {
         return this.receitasService.findAll();
-    } 
+    }
 
     @Get(':id')
-    findOne(@Param('id', ParseIntPipe) id: number, @Res() res: Response){
-        const acharReceita = this.receitasService.findById(id);
-        if(acharReceita){
+    async findOne(@Param('id', ParseIntPipe) id: number, @Res() res: Response) {
+        const acharReceita = await this.receitasService.findById(id);
+        if (acharReceita) {
             res.status(HttpStatus.OK).json(acharReceita);
-        }else{
+        } else {
             res.status(HttpStatus.NOT_FOUND).send();
         }
     }
 
     @Delete(':id')
-    remove(@Param('id', ParseIntPipe) id: number, @Res() res: Response) {
-         const indexacharReceita = this.receitasService.findIndexById(id);
-         if(indexacharReceita >= 0){
-            this.receitasService.deleteByIndex(indexacharReceita);
+    async remove(@Param('id', ParseIntPipe) id: number, @Res() res: Response) {
+        const indexacharReceita = await this.receitasService.findById(id);
+        if (indexacharReceita) {
+            await this.receitasService.remove(id);
             res.status(HttpStatus.NO_CONTENT).send();
-         }else {
+        } else {
             res.status(HttpStatus.NOT_FOUND).send();
-         }
+        }
     }
 
     @Post()
-    create(@Body() receita: Receita, @Res() res: Response){
-        this.receitasService.create(receita);
+    async create(@Body() createOrUpdateReceitasDto: CreateOrUpdateReceitasDto, @Res() res: Response) {
+        const receita = await this.receitasService.save(createOrUpdateReceitasDto);
         res.status(HttpStatus.CREATED).json(receita);
     }
 
     @Put(':id')
-    update(@Param('id', ParseIntPipe) id: number, @Body() receita: Receita, @Res() res: Response){
-        const indexacharReceita = this.receitasService.findIndexById(id);
-        if(indexacharReceita >= 0){
-            this.receitasService.update(indexacharReceita, receita);
+    async update(@Param('id', ParseIntPipe) id: number, @Body() createOrUpdateReceitasDto: CreateOrUpdateReceitasDto, @Res() res: Response) {
+        const indexacharReceita = this.receitasService.findById(id);
+        if (indexacharReceita) {
+            this.receitasService.update(id, createOrUpdateReceitasDto);
             res.status(HttpStatus.NO_CONTENT).send();
-        }else{
+        } else {
             res.status(HttpStatus.NOT_FOUND).send();
         }
     }
