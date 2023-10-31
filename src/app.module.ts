@@ -6,6 +6,7 @@ import { ReceitasController } from './receitas/receitas.controller';
 import { ReceitasModule } from './receitas/receitas.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
+import { Receita } from './receitas/receita.entity';
 
 @Module({
   imports: [ReceitasModule,
@@ -16,7 +17,7 @@ import { DataSource } from 'typeorm';
       username: 'receitas_pweb2_user',
       password: 'AyzhFdm2Zne1g1YEP1Qyqy6YtUbixoPq',
       database: 'receitas_pweb2',
-      entities: [],
+      entities: [Receita],
       synchronize: true,
       ssl: true
     }),
@@ -25,5 +26,5 @@ import { DataSource } from 'typeorm';
   providers: [AppService],
 })
 export class AppModule {
-  constructor(private dataSource: DataSource){}
+  constructor(private dataSource: DataSource) { }
 }
