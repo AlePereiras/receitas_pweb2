@@ -11,12 +11,12 @@ export class Receita {
     @Column()
     nomeReceita: string;
 
-    // @Column()
-    // descricao: string;
+    @Column()
+    descricao: string;
 
-    // @Column()
-    // ingredientes: string;
+    @Column()
+    ingredientes: string;
 
-    // @Column()
-    // modoFazer: string;
+    @Column()
+    modoFazer: string;
 }
