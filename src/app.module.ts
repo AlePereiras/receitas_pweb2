@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ReceitasService } from './receitas/receitas.service';
-import { ReceitasController } from './receitas/receitas.controller';
 import { ReceitasModule } from './receitas/receitas.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
