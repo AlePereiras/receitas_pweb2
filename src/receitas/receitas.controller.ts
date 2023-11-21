@@ -17,7 +17,9 @@ export class ReceitasController {
 
     @Get(':id')
     async findOne(@Param('id', ParseIntPipe) id: number, @Res() res: Response) {
+    
         const acharReceita = await this.receitasService.findById(id);
+        console.log(acharReceita)
         if (acharReceita) {
             res.status(HttpStatus.OK).json(acharReceita);
         } else {
