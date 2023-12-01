@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-//import { Receita } from './interfaces/receita.interface';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Receita } from './receita.entity';
 import { Repository } from 'typeorm';

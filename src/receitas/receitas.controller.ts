@@ -1,6 +1,5 @@
 import { Controller, Get, Delete, Post, Put, Body, HttpStatus, Param, ParseIntPipe, Res, } from '@nestjs/common';
 import { ReceitasService } from './receitas.service';
-//import { Receita } from './interfaces/receita.interface';
 import { Response } from 'express';
 import { Receita } from './receita.entity';
 import { CreateOrUpdateReceitasDto } from './dto/create.receitas.dto';

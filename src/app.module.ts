@@ -5,9 +5,12 @@ import { ReceitasModule } from './receitas/receitas.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { Receita } from './receitas/receita.entity';
+import { Favorito } from './receitas/favoritos/favorito.entity';
+import { FavoritosModule } from './receitas/favoritos/favoritos.module';
+
 
 @Module({
-  imports: [ReceitasModule,
+  imports: [ReceitasModule, FavoritosModule, 
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'dpg-ckar75kiibqc73af10t0-a.oregon-postgres.render.com',
@@ -15,12 +18,12 @@ import { Receita } from './receitas/receita.entity';
       username: 'receitas_pweb2_user',
       password: 'AyzhFdm2Zne1g1YEP1Qyqy6YtUbixoPq',
       database: 'receitas_pweb2',
-      entities: [Receita],
+      entities: [Receita, Favorito],
       synchronize: true,
       ssl: true
     }),
   ],
-  controllers: [AppController],
+  controllers: [AppController, ],
   providers: [AppService],
 })
 export class AppModule {
