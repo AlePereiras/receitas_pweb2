@@ -7,6 +7,9 @@ import { Receita } from './receita.entity';
 // import { FavoritosService } from './favoritos/favoritos.service';
 // import { FavoritosModule } from './favoritos/favoritos.module';
 // import { Favorito } from './favoritos/favorito.entity';
+// import { UsuariosController } from './usuarios/usuarios.controller';
+// import { UsuariosService } from './usuarios/usuarios.service';
+// import { UsuariosModule } from './usuarios/usuarios.module';
 
 @Module({
     imports: [TypeOrmModule.forFeature([Receita])],
