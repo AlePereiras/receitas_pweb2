@@ -9,10 +9,12 @@ import { Favorito } from './receitas/favoritos/favorito.entity';
 import { FavoritosModule } from './receitas/favoritos/favoritos.module';
 import { UsuariosModule } from './receitas/usuarios/usuarios.module';
 import { Usuario } from './receitas/usuarios/usuario.entity';
+import { Ingrediente } from './receitas/ingredientes/ingrediente.entity';
+import { IngredientesModule } from './receitas/ingredientes/ingredientes.module';
 
 
 @Module({
-  imports: [ReceitasModule, FavoritosModule, UsuariosModule,
+  imports: [ReceitasModule, FavoritosModule, UsuariosModule, IngredientesModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'dpg-ckar75kiibqc73af10t0-a.oregon-postgres.render.com',
@@ -20,12 +22,12 @@ import { Usuario } from './receitas/usuarios/usuario.entity';
       username: 'receitas_pweb2_user',
       password: 'AyzhFdm2Zne1g1YEP1Qyqy6YtUbixoPq',
       database: 'receitas_pweb2',
-      entities: [Receita, Favorito, Usuario],
+      entities: [Receita, Favorito, Usuario, Ingrediente],
       synchronize: true,
       ssl: true
-    }),
+    })
   ],
-  controllers: [AppController, ],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {
