@@ -1,4 +1,4 @@
-import { Controller, Get, Delete, Post, Put, Body, HttpStatus, Param, ParseIntPipe, Res, } from '@nestjs/common';
+import { Controller, Get, Delete, Post, Put, Body, HttpStatus, Param, ParseIntPipe, Res, Query, } from '@nestjs/common';
 import { ReceitasService } from './receitas.service';
 import { Response } from 'express';
 import { Receita } from './receita.entity';
@@ -10,8 +10,12 @@ export class ReceitasController {
     constructor(private receitasService: ReceitasService) { }
 
     @Get()
-    findAll(): Promise<Receita[]> {
-        return this.receitasService.findAll();
+    findAll(@Query('ingredientes') ingredientes: string): Promise<Receita[]> {
+        if(ingredientes){
+            return this.receitasService.findBy(ingredientes)
+        } else {
+            return this.receitasService.findAll()
+        }
     }
 
     @Get(':id')

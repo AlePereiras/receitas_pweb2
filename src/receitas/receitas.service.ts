@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Receita } from './receita.entity';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { CreateOrUpdateReceitasDto } from './dto/create.receitas.dto';
 
 @Injectable()
@@ -26,7 +26,7 @@ export class ReceitasService {
         await this.receitasRepository.update(id, receita);
     }
 
-    // Retorna várias receitas a partir do ingrediente
+    
     findById(id: number): Promise<Receita | null> {
         return this.receitasRepository.findOneBy({ id });
     }
@@ -36,4 +36,10 @@ export class ReceitasService {
         await this.receitasRepository.delete(id);
     }
 
-}
+   // Retorna várias receitas a partir do ingrediente
+    findBy(ingredientes: string): Promise<Receita[]> {
+    return this.receitasRepository.findBy({ingredientes: Like("%" + ingredientes + "%")});
+        }
+    }
+    
+
