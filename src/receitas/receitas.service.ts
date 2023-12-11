@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Receita } from './receita.entity';
-import { Like, Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { CreateOrUpdateReceitasDto } from './dto/create.receitas.dto';
 
 @Injectable()
@@ -38,7 +38,7 @@ export class ReceitasService {
 
    // Retorna várias receitas a partir do ingrediente
     findBy(ingredientes: string): Promise<Receita[]> {
-    return this.receitasRepository.findBy({ingredientes: Like("%" + ingredientes + "%")});
+    return this.receitasRepository.findBy({ingredientes: ILike("%" + ingredientes + "%")});
         }
     }
     
